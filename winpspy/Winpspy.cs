@@ -51,14 +51,17 @@ namespace winpspy
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Winpspy - by xct");
+
             if (args.Length < 1)
-            {
-                Console.WriteLine("Usage: watcher.exe <path to monitor>");
-                return;
+            {                
+               Console.WriteLine("Usage: watcher.exe <path to monitor>");
+               return;
             }
 
             // Monitor Processes, Pipes
-            var procTimer = new System.Timers.Timer(2000);
+            var procTimer = new System.Timers.Timer(1000);
             procTimer.Enabled = true;
             procTimer.Elapsed += new ElapsedEventHandler(ProcDump);
             procTimer.Elapsed += new ElapsedEventHandler(PipeDump);
