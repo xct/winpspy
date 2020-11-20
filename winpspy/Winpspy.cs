@@ -17,7 +17,7 @@ namespace winpspy
         static List<String> activePipes = new List<String>();
         static StreamWriter logWriter;
         static readonly string[] Blacklist = { "AutomaticDestinations" };
-        static readonly string[] Keywords = { "root.txt" };
+        static readonly string[] Keywords = { "exampleKeyword" };
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         struct WIN32_FIND_DATA
@@ -54,6 +54,7 @@ namespace winpspy
             if (args.Length < 1)
             {
                 Console.WriteLine("Usage: watcher.exe <path to monitor>");
+                return;
             }
 
             // Monitor Processes, Pipes
