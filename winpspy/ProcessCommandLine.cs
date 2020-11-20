@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace winpspy
 {
+	// https://github.com/sonicmouse/ProcCmdLine
 	public static class ProcessCommandLine
 	{
 		private static class Win32Native
