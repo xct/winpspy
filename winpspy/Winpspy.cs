@@ -140,7 +140,7 @@ namespace winpspy
                 }
                 catch
                 {
-                    Log(String.Format("[*] File: {0} {1} [No Access]", e.FullPath, e.ChangeType));
+                    Log(String.Format("[*] File: {0} {1} [No Access/Locked]", e.FullPath, e.ChangeType));
                 }
 
                 // check files for keywords
@@ -193,7 +193,7 @@ namespace winpspy
                 }
                 catch
                 {
-                    Log(String.Format("[*] File: {0} to {1} Renamed [No Access]", e.OldFullPath, e.FullPath));
+                    Log(String.Format("[*] File: {0} to {1} Renamed [No Access/Locked]", e.OldFullPath, e.FullPath));
                 }
             }
         }
@@ -269,15 +269,20 @@ namespace winpspy
             }
             FindClose(ptr);
 
-            var diffPipes = namedPipes.Except(activePipes).ToList();
-            foreach (var p in diffPipes)
+            foreach (var p in namedPipes)
             {
-                if (activePipes.Contains(p))
+                // new pipe
+                if (!activePipes.Contains(p))
+                {
+                    Log("[+] Pipe: " + p);
+                }
+            }
+            foreach (var p in activePipes)
+            {
+                // new pipe
+                if (!namedPipes.Contains(p))
                 {
                     Log("[-] Pipe: " + p);
-                } else
-                {
-                    Log("[+] Pipe " + p);
                 }
             }
             activePipes = namedPipes;
